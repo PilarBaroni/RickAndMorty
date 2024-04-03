@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const SearchBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -10,7 +10,9 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/rickandmorty/character?name=${searchTerm}`);
+      const response = await axios.get(
+        `http://localhost:3001/rickandmorty/character?name=${searchTerm}`
+      );
       onSearch(response.data);
     } catch (error) {
       console.error(error);

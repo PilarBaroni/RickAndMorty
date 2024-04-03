@@ -1,5 +1,3 @@
-
-
 const ClearButton = ({ onClear }) => {
   const handleClick = () => {
     onClear();
@@ -7,7 +5,7 @@ const ClearButton = ({ onClear }) => {
 
   return (
     <div>
-      <button onClick={handleClick}>Clear</button>
+      <button onClick={handleClick}>All Characters</button>
     </div>
   );
 };
