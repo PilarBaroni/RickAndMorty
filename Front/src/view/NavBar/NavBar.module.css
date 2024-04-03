@@ -1,0 +1,10 @@
+.nav {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100px; /* Altura deseada */
+    background-color: #f0f0f0; /* Color de fondo opcional */
+    position: sticky; /* Barra pegajosa en la parte superior */
+    top: 0; /* En la parte superior */
+    width: 100%; /* Ancho completo */
+  }
