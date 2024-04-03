@@ -23,7 +23,8 @@ const getCharByName = async (req, res) => {
           species: characterData.species,
           status: characterData.status,
           origin: characterData.origin.name,
-          image: characterData.image
+          image: characterData.image,
+          location: characterData.location.name,
         }));
         return res.status(200).json(characters);
       }

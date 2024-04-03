@@ -20,12 +20,12 @@ const LandingPage = () => {
     return (
       <div>
         <NavBar onSearch={handleSearch} onClear={handleClear} />
-        <div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {isSearching && characters.length === 0 ? (
             <p>No se encontraron resultados.</p>
           ) : (
             characters.map((character) => (
-              <CharacterCard key={character.id} character={character} />
+              <CharacterCard key={character.id} character={character}  />
             ))
           )}
         </div>

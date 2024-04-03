@@ -36,12 +36,12 @@ const CharacterCard = ({ character }) => {
       }}
     >
       <img
-        src={character.image}
-        alt={character.name}
+        src={character?.image}
+        alt={character?.name}
         style={{ width: "100%", cursor: "pointer" }}
         onClick={openModal}
       />
-      <h2>{character.name}</h2>
+       <h2>{character?.name}</h2>
       {isModalOpen && (
         <div
           className="modal"
@@ -76,16 +76,16 @@ const CharacterCard = ({ character }) => {
             >
               &times;
             </span>
-            <h2>{character.name}</h2>
+            <h2>{character?.name}</h2>
             <img
-              src={character.image}
-              alt={character.name}
+              src={character?.image}
+              alt={character?.name}
               style={{ width: "100%" }}
             />
-            <p>Status: {character.status}</p>
-            <p>Species: {character.species}</p>
-            <p>Origin: {character.origin.name}</p>
-            <p> location: {character.location.name}</p>
+            <p>Status: {character?.status}</p>
+            <p>Species: {character?.species}</p>
+            <p>Origin: {character?.origin?.name}</p>
+            <p>Location: {character?.location?.name}</p>
           </div>
         </div>
       )}
