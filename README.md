@@ -1,7 +1,7 @@
 # Desafío para Dev
 
 Nombre postulante: Rocío Pilar Baroni
-Link a la app en producción: [LINK DEL DEPLOY]
+Link a la app en producción: https://relaxed-lebkuchen-ab42ad.netlify.app/
 
 ## Instrucciones
 
