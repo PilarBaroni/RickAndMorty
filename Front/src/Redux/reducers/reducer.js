@@ -1,20 +1,15 @@
-import { FILTER } from "../Actions/actionsTypes";
+import { SET_CHARACTERS } from "../Actions/actionsTypes";
 
 const initialState = {
-  characters: [], 
-  allCharacters: [] 
+  characters: [],
+  allCharacters: [],
+  totalPages: 1
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case FILTER:
-      const filteredCharacters = action.payload === "all" 
-        ? [...state.allCharacters] 
-        : state.allCharacters.filter(character => character.gender === action.payload);
-      return {
-        ...state,
-        characters: filteredCharacters
-      };
+    case SET_CHARACTERS:
+      return {...state, ...action?.payload}
     default:
       return state;
   }

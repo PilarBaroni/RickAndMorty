@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import style from "../SearchBar/SearchBar.module.css";
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,20 +10,21 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const handleSearch = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/rickandmorty/character?name=${searchTerm}`
-      );
-      onSearch(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+    onSearch(searchTerm);
   };
 
   return (
-    <div>
-      <input type="text" value={searchTerm} onChange={handleChange} />
-      <button onClick={handleSearch}>Search</button>
+    <div className={style.searchBar}>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleChange}
+        className={style.input}
+        placeholder="Search..."
+      />
+      <button onClick={handleSearch} className={style.button}>
+        Search
+      </button>
     </div>
   );
 };

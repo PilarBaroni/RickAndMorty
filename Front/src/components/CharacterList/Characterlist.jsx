@@ -1,40 +1,48 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CharacterCard from "../CharacterCard/CharacterCard";
+import styles from "../CharacterList/CharacterList.module.css"
+import { useSelector } from "react-redux";
 
+const CharacterList = ({page, setPage, characters}) => {
 
-const CharacterList = () => {
-  const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1);
+  const {totalPages} = useSelector(state=>state)
 
-  useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`);
-        setCharacters(data.results);
-      } catch (error) {
-        console.error("Error fetching characters:", error);
-      }
-    };
-
-    fetchCharacters();
-  }, [page]);
-
-  const handleNextPage = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePrevPage = () => {
-    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
   };
 
   return (
-    <div>
-      <div>
-        <button onClick={handlePrevPage} disabled={page === 1}>Previous Page</button>
-        <button onClick={handleNextPage}>Next Page</button>
+    <div className={styles.characterList}>
+      <div className={styles.pagination}>
+        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
+          {"<"}
+        </button>
+        {[...Array(Math.min(totalPages, 3))].map((_, index) => (
+          <button key={index} onClick={() => handlePageChange(index + 1)} disabled={page === index + 1}>
+            {index + 1}
+          </button>
+        ))}
+        {totalPages > 3 && (
+          <>
+            <span className={styles.span}>{page}</span>
+            <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
+              {page + 1}
+            </button>
+            <button onClick={() => handlePageChange(page + 2)} disabled={page + 1 === totalPages}>
+              {page + 2}
+            </button>
+            <span className={styles.span}>...</span>
+            <button onClick={() => handlePageChange(totalPages)}>{totalPages}</button>
+          </>
+        )}
+        <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
+          {">"}
+        </button>
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div className={styles.characterGrid}>
         {characters.map((character) => (
           <CharacterCard key={character.id} character={character} />
         ))}
@@ -42,5 +50,7 @@ const CharacterList = () => {
     </div>
   );
 };
+
+
 
 export default CharacterList;

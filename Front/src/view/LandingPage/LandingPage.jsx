@@ -1,37 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CharacterCard from "../../components/CharacterCard/CharacterCard";
 import CharacterList from "../../components/CharacterList/Characterlist";
-import NavBar from "../NavBar/NavBar"
+import NavBar from "../NavBar/NavBar";
+import {useSelector, useDispatch} from 'react-redux'
+import { getCharacters } from "../../Redux/Actions/actions";
 
 const LandingPage = () => {
-    const [characters, setCharacters] = useState([]);
-    const [isSearching, setIsSearching] = useState(false);
-  
-    const handleSearch = (data) => {
-      setCharacters(data);
-      setIsSearching(true);
-    };
-  
-    const handleClear = () => {
-      setCharacters([]); // Limpiar la búsqueda y mostrar todos los personajes
-      setIsSearching(false); // Asegurarse de que no se está buscando
-    };
-  
-    return (
-      <div>
-        <NavBar onSearch={handleSearch} onClear={handleClear} />
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {isSearching && characters.length === 0 ? (
-            <p>No se encontraron resultados.</p>
-          ) : (
-            characters.map((character) => (
-              <CharacterCard key={character.id} character={character}  />
-            ))
-          )}
-        </div>
-        {!isSearching && <CharacterList />} {/* Mostrar CharacterList si no se está buscando */}
-      </div>
-    );
-  };
-  
-  export default LandingPage;
+  const {characters} = useSelector(state=>state)
+  const dispatch = useDispatch()
+  const [totalPages, setTotalPages] = useState(1);
+  const [filters, setFilters] = useState({name: '', page:1, gender: '', species: '', status: ''})
+  const handleSearch = (name) =>{
+    setFilters((prev)=>({...prev, name }))
+  }
+
+  const handleClear = ()=>{
+    setFilters({name: '', page:1, gender: '', species: '', status: ''})
+  }
+
+  useEffect(()=>{
+    dispatch(getCharacters(filters))
+  },[filters])
+
+  const setPage = (page) => {
+    setFilters((prev)=>({...prev, page}))
+  }
+
+  const setGender = (gender)=>{
+    setFilters((prev)=>({...prev, gender}))
+  }
+
+  const setStatus = (status) =>{
+    setFilters((prev)=>({...prev, status}))
+  }
+
+  return (
+    <div style={{ backgroundColor: "beige" }} >
+      <NavBar onSearch={handleSearch} onClear={handleClear} status={filters.status} setStatus={setStatus} gender={filters.gender} setGender={setGender}  />
+      <CharacterList page={filters.page}  setPage={setPage} characters={characters} totalPages={totalPages} />
+    </div>
+  );
+};
+
+export default LandingPage;

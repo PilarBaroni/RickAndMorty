@@ -1,3 +1,5 @@
+import style from "../ClearButton/ClearButton.module.css";
+
 const ClearButton = ({ onClear }) => {
   const handleClick = () => {
     onClear();
@@ -5,7 +7,7 @@ const ClearButton = ({ onClear }) => {
 
   return (
     <div>
-      <button onClick={handleClick}>All Characters</button>
+      <button onClick={handleClick} className={style.clearButton}>All Characters</button>
     </div>
   );
 };

@@ -3,21 +3,25 @@ const { Character } = require("../models/Character");
 
 const getCharByName = async (req, res) => {
   const { name } = req.query;
-  
+
   try {
     if (!name) {
-      return res.status(400).json({ message: "Debe proporcionar un nombre de personaje." });
+      return res
+        .status(400)
+        .json({ message: "Debe proporcionar un nombre de personaje." });
     }
 
     const lowercaseNameQuery = name.toLowerCase();
 
     try {
       // Hacer una solicitud a la API de Rick and Morty con el nombre proporcionado
-      const { data } = await axios.get(`https://rickandmortyapi.com/api/character/?name=${lowercaseNameQuery}`);
-      
+      const { data } = await axios.get(
+        `https://rickandmortyapi.com/api/character/?name=${lowercaseNameQuery}`
+      );
+
       // Si se encuentra el personaje en la API, responder con los detalles del personaje
       if (data.results.length > 0) {
-        const characters = data.results.map(characterData => ({
+        const characters = data.results.map((characterData) => ({
           id: characterData.id,
           name: characterData.name,
           species: characterData.species,
@@ -30,7 +34,9 @@ const getCharByName = async (req, res) => {
       }
 
       // Si no se encuentra en la API, buscar en la base de datos
-      const foundCharacters = await Character.findAll({ where: { name: lowercaseNameQuery } });
+      const foundCharacters = await Character.findAll({
+        where: { name: lowercaseNameQuery },
+      });
       if (foundCharacters.length > 0) {
         return res.status(200).json(foundCharacters);
       }
@@ -48,5 +54,5 @@ const getCharByName = async (req, res) => {
 };
 
 module.exports = {
-  getCharByName
+  getCharByName,
 };
