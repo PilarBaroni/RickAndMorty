@@ -34,9 +34,13 @@ const LandingPage = () => {
     setFilters((prev)=>({...prev, status}))
   }
 
+  const setSpecies = (species) =>{
+    setFilters((prev)=>({...prev, species}))
+  }
+
   return (
     <div style={{ backgroundColor: "beige" }} >
-      <NavBar onSearch={handleSearch} onClear={handleClear} status={filters.status} setStatus={setStatus} gender={filters.gender} setGender={setGender}  />
+      <NavBar onSearch={handleSearch} onClear={handleClear} status={filters.status} species={filters.species} setSpecies={setSpecies} setStatus={setStatus} gender={filters.gender} setGender={setGender}  />
       <CharacterList page={filters.page}  setPage={setPage} characters={characters} totalPages={totalPages} />
     </div>
   );
