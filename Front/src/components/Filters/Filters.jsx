@@ -41,9 +41,8 @@ const Filters = ({ setGender, gender, status, setStatus, species, setSpecies }) 
       </select>
       <div className={styles.boxSpecies}>
         <input className={styles.input} value={input} placeholder="Species"  onChange={handleSpecies} />
-        <button onClick={searchSpecies}>Search Species</button>
+        <button className={styles.button} onClick={searchSpecies}>Search Species</button>
       </div>
-      
     </div>
   );
 };
